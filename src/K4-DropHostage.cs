@@ -60,6 +60,10 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 		if (pawn == null || !pawn.IsValid)
 			return HookResult.Continue;
 
+		var hostage = pawn.HostageServices?.CarriedHostage.Value;
+		if (hostage == null || !hostage.IsValid)
+			return HookResult.Continue;
+
 		DropHostageInternal(pawn);
 		return HookResult.Handled;
 	}
