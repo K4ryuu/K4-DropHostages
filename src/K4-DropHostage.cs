@@ -12,7 +12,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 	public override string ModuleName => "CS2 Drop Hostages";
 	public override string ModuleAuthor => "K4ryuu @ KitsuneLab";
 	public override string ModuleDescription => "Drop hostages in CS2 using a command or drop weapon key.";
-	public override string ModuleVersion => "1.0.0";
+	public override string ModuleVersion => "1.0.1";
 
 	public PluginConfig Config { get; set; } = new();
 	public void OnConfigParsed(PluginConfig config) { this.Config = config; }
@@ -42,7 +42,12 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 					if (pawn == null || !pawn.IsValid)
 						return;
 
-					DropHostageInternal(pawn);
+					var hostage = pawn.HostageServices?.CarriedHostage.Value;
+					if (hostage == null || !hostage.IsValid)
+						return;
+
+					Vector dropPosition = GetPropPosition(pawn, 30);
+					DropHostage.Invoke(hostage, dropPosition, false);
 				});
 			}
 		}
@@ -64,7 +69,8 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 		if (hostage == null || !hostage.IsValid)
 			return HookResult.Continue;
 
-		DropHostageInternal(pawn);
+		Vector dropPosition = GetPropPosition(pawn, 30);
+		DropHostage.Invoke(hostage, dropPosition, false);
 		return HookResult.Handled;
 	}
 
@@ -77,16 +83,6 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 		Vector forward = new((float)Math.Cos(radianY) * distance, (float)Math.Sin(radianY) * distance, 0);
 
 		return playerPosition + forward;
-	}
-
-	private static void DropHostageInternal(CCSPlayerPawn pawn)
-	{
-		var hostage = pawn.HostageServices?.CarriedHostage.Value;
-		if (hostage == null || !hostage.IsValid)
-			return;
-
-		Vector dropPosition = GetPropPosition(pawn, 30);
-		DropHostage.Invoke(hostage, dropPosition, false);
 	}
 }
 
