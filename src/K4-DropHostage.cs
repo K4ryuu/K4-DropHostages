@@ -18,7 +18,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 	public void OnConfigParsed(PluginConfig config) { this.Config = config; }
 
 	private static readonly MemoryFunctionVoid<CBaseEntity, Vector, bool> DropHostage
-		= new("55 48 ? ? 41 57 41 89 D7 41 56 41 55 41 54 49 89 FC 53 48 89 F3 48 81 EC");
+		= new("55 48 89 E5 41 57 41 56 41 55 49 89 F5 41 54 41 89 D4 53 48 89 FB 48 81 EC 88 01 00 00"); // ! TODO: Add gamedata file for both Linux and Windows
 
 	private readonly MemoryFunctionVoid<CCSPlayerPawn, CBasePlayerWeapon> DropWeapon
 		= new("55 48 89 E5 41 57 41 56 41 55 49 89 F5 41 54 53 48 89 FB 48 83 EC ? 48 8D 05 ? ? ? ? 48 8B 00");
