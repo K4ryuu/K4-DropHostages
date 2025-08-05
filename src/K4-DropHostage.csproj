@@ -3,7 +3,7 @@
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
-    <PublishDir>./bin/K4-DropHostage/</PublishDir>
+    <PublishDir>./bin/K4-DropHostage/plugins/K4-DropHostage/</PublishDir>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -18,4 +18,7 @@
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="CopyCustomFilesToPublishDirectory" AfterTargets="Publish">
+    <Copy SourceFiles="$(ProjectDir)k4-drophostage.json" DestinationFolder="$(PublishDir)../../gamedata" />
+  </Target>
 </Project>

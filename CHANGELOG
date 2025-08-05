@@ -1,0 +1,7 @@
+-- 2025.08.05 - v1.1.0
+
+- feat: Moved gamedata to an external file to simplify future updates.
+- feat: Automatically disables hooks and commands when no hostages are spawned in a round.
+- fix: Updated function signatures to align with the latest CS2 changes.
+- fix: Standardized signature names to use fully qualified names for clarity.
+- remove: Removed the "Configs enabled" option; if the list is empty, configs are now ignored by default.
